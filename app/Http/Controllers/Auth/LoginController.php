@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -34,6 +35,7 @@ class LoginController extends Controller
             'password.required' => 'Kolom password wajib diisi.',
         ]);
     }
+
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
@@ -57,8 +59,30 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     public function showLoginForm()
     {
         return view('auth.login3');
+    }
+
+    public function logout(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 }

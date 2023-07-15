@@ -58,7 +58,7 @@ class UserManagement extends Component
         'name.regex' => 'Format Nama tidak valid. Hanya diperbolehkan huruf dan spasi.',
         'email.required' => 'Kolom Email wajib diisi.',
         'email.email' => 'Format Email tidak valid.',
-        'role.required' => 'Kolom Jabatan wajib diisi.',
+        'role.required' => 'Harap pilih Role',
     ];
 
     public function updated($field)
@@ -73,12 +73,6 @@ class UserManagement extends Component
     {
         $this->validate();
 
-        // $simpan = new User;
-        // $simpan->name = $this->name;
-        // $simpan->role = $this->role;
-        // $simpan->password = Hash::make('password');
-        // $simpan->email = $this->email;
-        // $simpan->save();
 
         User::create([
             'name' => $this->name,
@@ -86,11 +80,9 @@ class UserManagement extends Component
             'role' => $this->role,
             'password' => Hash::make('password'),
         ]);
-        // session()->alert('message', 'Data Berhasil Disimpan.');
-        // $this->emit('closeModal');
+
         $this->dispatchBrowserEvent('closeModal');
         $this->alert('success', 'Data Berhasil Disimpan');
-        // $this->dispatchBrowserEvent('closeModal');
         $this->resetInput();
     }
 
@@ -144,7 +136,7 @@ class UserManagement extends Component
         $nama = User::where('id', $id)->get();
         $this->dispatchBrowserEvent('swal:confirmpass', [
             'type' => 'warning',
-            'title' => 'Apakah anda yakin akan mereset ' . $nama[0]->name . '?',
+            'title' => 'Apakah anda yakin atur ulang password ' . $nama[0]->name . '?',
             'text' => '',
             'id' => $id,
         ]);
@@ -172,7 +164,7 @@ class UserManagement extends Component
         $nama = User::where('id', $id)->get();
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
-            'title' => 'Apakah anda yakin akan menghapus ' . $nama[0]->name . '?',
+            'title' => 'Apakah anda yakin menghapus ' . $nama[0]->name . '?',
             'text' => '',
             'id' => $id,
         ]);

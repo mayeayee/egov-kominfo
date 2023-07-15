@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('data_opds', function (Blueprint $table) {
             $table->id();
             $table->string('nama_opd');
+            $table->string('kode_opd')->nullable();
             $table->string('slug')->nullable();
             $table->string('email')->nullable();
             $table->string('alamat')->nullable();

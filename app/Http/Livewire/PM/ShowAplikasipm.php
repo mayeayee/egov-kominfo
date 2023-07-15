@@ -435,12 +435,21 @@ class ShowAplikasipm extends Component
         $this->mount($this->slug);
     }
 
+
+
+
     public function updateProgres()
     {
+        $this->validate([
+            'progres_apk' => 'required|min:0'
+        ]);
         $this->aplikasis->update([
             'progres' => $this->progres_apk
         ]);
+
+        $this->alert('success', 'Progres Berhasil Disimpan');
     }
+
     public $selesai;
     public function simpan_selesai()
     {

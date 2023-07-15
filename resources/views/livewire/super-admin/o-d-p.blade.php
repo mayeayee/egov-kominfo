@@ -64,8 +64,8 @@
                                 <tr>
                                     <td><strong>{{ $no++ }}</strong></td>
                                     <td>{{ $item->nama_opd }}</td>
-                                    <td>{{ $item->email ?? "Belum Dinput" }}</td>
-                                    <td>{{ $item->no_telp ?? "Belum Dinput" }}</td>
+                                    <td>{{ $item->email ?? "" }}</td>
+                                    <td>{{ $item->no_telp ?? "" }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('show-opd',$item->slug) }}"

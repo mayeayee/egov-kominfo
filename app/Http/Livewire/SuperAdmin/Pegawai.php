@@ -26,7 +26,7 @@ class Pegawai extends Component
     public $nama_pegawai, $email, $jabatan, $status, $ids, $avatar, $cek, $update_avatar;
     public $search = '';
     public $preSe = '';
-    protected $listeners = ['delete'];
+    // protected $listeners = ['delete'];
 
 
     public $sortField = 'created_at';
@@ -46,6 +46,7 @@ class Pegawai extends Component
     {
         $this->resetPage();
     }
+
     public function render()
     {
 
@@ -59,11 +60,23 @@ class Pegawai extends Component
             ])
             ->section('isi');
     }
+    
     protected $rules = [
         'nama_pegawai' => 'required|min:6|regex:/^[a-zA-Z., ]*$/',
         'email' => 'required|email:email',
         'jabatan' => 'required',
-        'avatar' => 'file|mimes:jpeg,png,jpg|max:12048'
+        'avatar' => 'file|mimes:jpeg,png,jpg|max:2048'
+    ];
+
+    protected $messages = [
+        'nama_pegawai.required' => 'Kolom nama wajib diisi.',
+        'nama_pegawai.min' => 'Panjang Nama minimal 6 karakter.',
+        'nama_pegawai.regex' => 'Format Nama tidak valid. Hanya diperbolehkan huruf dan spasi.',
+        'email.required' => 'Kolom Email wajib diisi.',
+        'email.email' => 'Format Email tidak valid.',
+        'jabatan.required' => 'Harap pilih Role',
+        'avatar.file' => 'avatar harus gambar',
+        'avatar.max' => 'avatar harus maximal 2mb',
     ];
 
     public function updated($field)
@@ -117,88 +130,5 @@ class Pegawai extends Component
         $this->resetInput();
     }
 
-    public function edit($id)
-    {
-        $pegawai = User::where('id', $id)->first();
-        $this->ids = $pegawai->id;
-        $this->nama_pegawai = $pegawai->name;
-        $this->email = $pegawai->email;
-        $this->jabatan = $pegawai->role;
-        $this->status = $pegawai->status;
-        $this->avatar = $pegawai->avatar;
-        $this->cek = 1;
-    }
 
-    public function update()
-    {
-        $this->validate([
-            'nama_pegawai' => 'required|min:6|regex:/^[a-zA-Z., ]*$/',
-            'email' => 'required|email',
-            'jabatan' => 'required',
-        ]);
-
-        if (File::exists($this->avatar)) {
-            File::delete($this->avatar);
-        }
-
-        if ($this->update_avatar) {
-            # code...
-            $nama_avatarUP = $this->update_avatar->store("images", 'public');
-            $file_path = storage_path('app/public/' . $nama_avatarUP);
-
-            chmod($file_path, 0777);
-
-            $manager = new ImageManager();
-            $image = $manager->make($file_path)->fit(500, 500);
-            $image->save(public_path($nama_avatarUP));
-            if (Storage::exists('public/' . $nama_avatarUP)) {
-                Storage::delete('public/' . $nama_avatarUP);
-            }
-        }
-
-
-        if ($this->ids) {
-            $pegawai = User::find($this->ids);
-            $pegawai->update([
-                'name' => $this->nama_pegawai,
-                'email' => $this->email,
-                'role' => $this->jabatan,
-                // 'status' => $this->status,
-
-            ]);
-            if ($this->update_avatar) {
-                $pegawai->update([
-                    'avatar' => $nama_avatarUP
-                ]);
-            }
-
-
-            $this->dispatchBrowserEvent('edit');
-            $this->alert('success', 'User Berhasil Diupdate');
-            $this->resetInput();
-        }
-    }
-
-    public function konfimasiDEL($id)
-    {
-        $nama = User::where('id', $id)->get();
-        $this->dispatchBrowserEvent('swal:confirm', [
-            'type' => 'warning',
-            'title' => 'Apakah anda yakin akan menghapus ' . $nama[0]->name . '?',
-            'text' => '',
-            'id' => $id,
-        ]);
-    }
-
-    public function delete($id)
-    {
-        $Pegawai = User::where('id', $id)->first();
-        if (Storage::exists('public/' . $Pegawai->avatar)) {
-            Storage::delete('public/' . $Pegawai->avatar);
-            $this->alert('success', 'gambar Berhasil Diupdate');
-        };
-        User::where('id', $id)->delete();
-
-        $this->alert('success', 'Pegawai ' . $Pegawai->name . ' Berhasil Dihapus');
-    }
 }

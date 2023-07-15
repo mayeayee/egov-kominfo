@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar bg-success progress-animated" style="width: {{ $progres_apk }}%;"
+                        <div class="progress-bar bg-success progress-animated" style="width: {{ $progress }}%;"
                             role="progressbar">
                             {{-- {{ $progres_apk }} --}}
                         </div>

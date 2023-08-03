@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

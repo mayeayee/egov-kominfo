@@ -82,11 +82,9 @@ class Maintenance extends Component
         $app = Aplikasi::where('id', $this->ids)->first();
         $app->update([
             'status_aplikasi' => 'Running',
-            // 'keterangan' => $this->alasan
         ]);
         $this->resett = 1;
-        // $this->alert('success', 'Data Berhasil Disimpan');
-        # code...
+
     }
     public function show($id)
     {
@@ -128,9 +126,11 @@ class Maintenance extends Component
         ]);
 
         $nomorUrutTerbesar = Pengaduan::max('no_pengaduan');
+
         if (Pengaduan::where('no_pengaduan', $this->no_urut)->exists()) {
             Pengaduan::where('no_pengaduan', '>=', $this->no_urut)->increment('no_pengaduan');
         }
+        
         $perb->update([
             'no_pengaduan' => $this->no_urut,
         ]);
@@ -163,6 +163,7 @@ class Maintenance extends Component
         // $this->alert('success', 'Data Berhasil Disimpan');
         $this->resett = 1;
         $this->emit('dataSaved');
+        $this->alasan=null;
         // $this->reset();
 
         # code...
@@ -185,6 +186,8 @@ class Maintenance extends Component
         $this->emit('dataSaved');
         // $this->alert('success', 'Data Berhasil Disimpan');
         $this->resett = 1;
+        $this->alasan=null;
+
         // $this->reset();
         # code...
     }

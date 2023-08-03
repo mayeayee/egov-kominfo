@@ -189,7 +189,7 @@
                     <li class="{{ request()->is('whatapps') ? 'mm-active' : '' }}">
                         <a href="/whatapps" class="ai-icon" aria-expanded="false">
                             <i class="fa fa-whatsapp"></i>
-                            <span class="nav-text">Whatapps Gateway </span>
+                            <span class="nav-text">WhatsApp Gateway </span>
                         </a>
                     </li>
                     <li>

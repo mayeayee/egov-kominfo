@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('data_opds', function (Blueprint $table) {
             $table->id();
             $table->string('nama_opd');
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('kode_opd')->nullable();
             $table->string('slug')->nullable();
             $table->string('email')->nullable();
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->string('no_telp')->nullable();
             $table->string('kecamatan')->nullable();
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

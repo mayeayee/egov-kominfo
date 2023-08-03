@@ -32,6 +32,13 @@ class ShowOPD extends Component
     public function mount($slug)
     {
         $this->dataOPD = Data_OPD::where('slug', $slug)->first();
+        if ($this->dataOPD) {
+            # code...
+        } else {
+            return redirect()->to('/opd');
+            # code...
+        }
+
         $this->ids = $this->dataOPD->id;
         $this->nama_opd = $this->dataOPD->nama_opd;
         $this->email = $this->dataOPD->email;

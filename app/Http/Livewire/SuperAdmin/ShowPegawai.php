@@ -18,8 +18,12 @@ class ShowPegawai extends Component
     public function mount($slug)
     {
         $this->pegawai = User::where('slug', $slug)->first();
-
-
+        if ($this->pegawai) {
+            # code...
+        } else {
+            return redirect()->to('/pegawai');
+            # code...
+        }
     }
 
     public function render()
@@ -27,14 +31,14 @@ class ShowPegawai extends Component
         $user_id = $this->pegawai->id;
         $app = Aplikasi::whereHas('R_Tim', function ($query) use ($user_id) {
             $query->where('id_user', $user_id);
-        })->paginate(10 ,['*'], 'aplikasi');
+        })->paginate(10, ['*'], 'aplikasi');
         // dd($user_id);
-        $nowapp = Aplikasi::with('R_Tim')->whereHas('R_Tim', function ($query)use ($user_id)  {
+        $nowapp = Aplikasi::with('R_Tim')->whereHas('R_Tim', function ($query) use ($user_id) {
             $query->where('id_user', $user_id);
         })->where('status_aplikasi', 'Progres')->paginate(10);
-        return view('livewire.super-admin.show-pegawai',[
-            'app'=>$app,
-            'nowapp'=>$nowapp,
+        return view('livewire.super-admin.show-pegawai', [
+            'app' => $app,
+            'nowapp' => $nowapp,
 
         ])
             ->extends('layouts.main', [

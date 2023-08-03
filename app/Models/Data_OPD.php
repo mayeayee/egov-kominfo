@@ -5,11 +5,13 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Data_OPD extends Model
 {
     use HasFactory;
     use Sluggable;
+
     protected $table = 'data_opds';
 
     protected static function boot()
@@ -54,6 +56,7 @@ class Data_OPD extends Model
         'no_telp',
         'kecamatan',
         'kode_opd',
+        'status'
     ];
     public function sluggable(): array
     {

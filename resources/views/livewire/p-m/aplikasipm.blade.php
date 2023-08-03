@@ -216,7 +216,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td> <strong> {{ $item->nama_aplikasi }} </strong></td>
-                                        <td>{{ $item->R_OPD->nama_opd }}</td>
+                                        <td>{{ $item->R_OPD->nama_opd ??'' }}</td>
                                         <td><span class="{{ $item->prioritas == 'Urgent' ? 'badge-rounded badge-danger text-bold':(
                                             $item->prioritas == 'High' ? 'badge-rounded badge-warning text-bold': (
                                                 $item->prioritas == 'Medium' ?'badge-rounded badge-primary  text-bold': (
@@ -249,7 +249,7 @@
                                         </td>
                                         <td>
                                             <div class="progress mb-2">
-                                                <div class="progress-bar progress-animated bg-success"
+                                                <div class="progress-bar progress-animated bg-info"
                                                     style="width: {{ $item->progres }}%"></div>
                                             </div>
                                             <small>{{ $item->progres }}% </small>

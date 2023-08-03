@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('aplikasis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_opd');
+            $table->unsignedBigInteger('id_opd')->nullable();
             $table->string('nama_aplikasi');
             $table->longText('deskripsi')->nullable();
             $table->enum('prioritas', ['Low', 'Medium', 'High', 'Urgent'])->nullable();
@@ -30,8 +30,10 @@ return new class extends Migration
             $table->string('cp')->nullable();
             $table->string('slug');
             $table->enum('arsip', ['yes', 'no'])->default('no');
-            $table->foreign('id_opd')->references('id')->on('data_opds')->onUpdate('cascade');
+            $table->foreign('id_opd')->references('id')->on('data_opds')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

@@ -31,14 +31,17 @@
                         <div class="">Progress
                         </div>
                         <div class="form-group ">
-                            <input {{ $aplikasis->status_projek == 'Selesai' ? 'readonly' : '' }} class="form-control
+                            <input {{ $aplikasis->status_projek == 'Selesai' ? 'readonly' : '' }}
+                             class="form-control
                             form-control-sm text-black" type="number" placeholder=""
-                            wire:model.lazy='progres_apk' wire:change='updateProgres()' step="10" min="0" max="100"
+                            wire:model.lazy='progres_apk'
+                            wire:change='updateProgres()'
+                            step="10" min="0" max="100"
                             style="text-align: center;height: 30px;width: 60px">
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar bg-success progress-animated" style="width: {{ $progress }}%;"
+                        <div class="progress-bar bg-info progress-animated" style="width: {{ $progres_apk ?? 0 }}%;"
                             role="progressbar">
                             {{-- {{ $progres_apk }} --}}
                         </div>
@@ -502,6 +505,7 @@
                                             @if ( $item->R_Tim->sum('progress_count') == 0)
 
 
+                                            {{-- (Sedang mengerjakan {{  $item->R_Tim->sum('progress_count') }} aplikasi ) --}}
                                             @else
                                             (Sedang mengerjakan {{  $item->R_Tim->sum('progress_count') }} aplikasi )
 
@@ -527,8 +531,6 @@
                                         @foreach ($PM as $item )
                                         <option value="{{ $item->id }}"> {{ $item->name }}
                                             @if ( $item->R_Tim->sum('progress_count') == 0)
-
-
                                             @else
                                             (Sedang mengerjakan {{  $item->R_Tim->sum('progress_count') }} aplikasi )
 

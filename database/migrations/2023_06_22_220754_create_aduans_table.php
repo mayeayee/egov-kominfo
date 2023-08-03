@@ -18,8 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('judul_aplikasi');
             $table->string('cp');
             $table->text('deskripsi');
-            $table->foreign('judul_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade');
+            $table->foreign('judul_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

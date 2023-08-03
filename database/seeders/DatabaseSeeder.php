@@ -44,6 +44,6 @@ class DatabaseSeeder extends Seeder
             AplikasiSeeder::class,
             UserSeeder::class,
         ]);
-        // Tim::factory(200)->create();
+        Tim::factory(200)->create();
     }
 }

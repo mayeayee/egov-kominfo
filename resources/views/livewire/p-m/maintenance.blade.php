@@ -12,7 +12,7 @@
                                             class="flaticon-381-search-2"></i></a></span>
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="d-flex mb-3">
 
@@ -117,7 +117,7 @@
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label-lg font-weight-bold">Nomor Antrian
-                                    Perbeaikan</label>
+                                    Perbaikan</label>
                                 <div class="col-lg-10">
                                     <div >
                                         <select wire:model='no_urut' class="form-control default-select">
@@ -264,16 +264,7 @@
         console.log(data);
         Livewire.on('statusSelected', function(selectedValue) {
             if (selectedValue === 'Perbaikan') {
-                // Memunculkan modal
-                // if (data === '1') {
-                //     $('#modal-perbaikan').modal('show');
-                //     data = '0';
-                //     console.log('modal muncul');
-                // } else if(data === '0'){
-                //     $('#modal-perbaikan').modal('hide');
-                //     data = '1';
-                //     console.log('modal tidak muncul');
-                // }
+
                 switch(data){
                     case "1":
                         $('#modal-perbaikan').modal('show');
@@ -281,23 +272,13 @@
                         break;
                     case "0":
                         data = '1';
-                        // $('#modal-perbaikan').modal('hide');
                         break;
                     default:
-                        // $('#modal-perbaikan').modal('hide');
 
                 }
 
             } else if(selectedValue === 'Tidak Aktif'){
-                // if (data === '1') {
-                //     $('#modal-tidak').modal('show');
-                //     data = '0';
-                //     console.log('modal muncul');
-                // }  else if(data === '0'){
-                //     $('#modal-tidak').modal('hide');
-                //     data = '1';
-                //     console.log('modal tidak muncul');
-                // }
+
                 switch(data){
                     case "1":
                         $('#modal-tidak').modal('show');
@@ -305,23 +286,13 @@
                         break;
                     case "0":
                          data = '1';
-                        // $('#modal-tidak').modal('hide');
                         break;
                     default:
-                        // $('#modal-tidak').modal('hide');
 
                 }
 
             }else if(selectedValue === 'Semi Aktif'){
-                // if (data === 1) {
-                //     $('#modal-semi').modal('show');
-                //     data = '0';
-                //     console.log('modal muncul');
-                // }else if(data === '0'){
-                //     console.log('modal tidak muncul');
-                //     $('#modal-semi').modal('hide');
-                //     data = '1';
-                // }
+
                 switch(data){
                     case "1":
                         $('#modal-semi').modal('show');
@@ -329,10 +300,8 @@
                         break;
                     case "0":
                          data = '1';
-                        // $('#modal-semi').modal('hide');
                         break;
                     default:
-                        // $('#modal-semi').modal('hide');
 
                 }
             }else{

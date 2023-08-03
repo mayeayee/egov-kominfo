@@ -19,8 +19,10 @@ return new class extends Migration
             $table->enum('status',['Disposisi Surat', 'Analisis Awal', 'Analisis Kebutuhan', 'Coding', 'Testing', 'UAT', 'Selesai', 'Ditolak']);
             $table->string('catatan')->nullable();
             $table->dateTime('tanggal');
-            $table->foreign('id_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade');
+            $table->foreign('id_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

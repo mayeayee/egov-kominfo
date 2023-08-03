@@ -50,7 +50,7 @@ class ShowAplikasipm extends Component
         return view('livewire.p-m.show-aplikasipm', [
             'PM' => User::where('role', '<>', 'Super Admin')->with(['R_Tim' => function ($query) {
                 $query->withCount(['R_Aplikasi as progress_count' => function ($query) {
-                    $query->where('status_aplikasi', 'Progres');
+                    $query->where('status_aplikasi', 'Progres')->orWhere('status_aplikasi', 'Antrian');
                 }]);
             }])->get(),
             'norut' => $newArray,
@@ -67,6 +67,13 @@ class ShowAplikasipm extends Component
     {
         $this->aplikasis = Aplikasi::where('slug', $slug)->first();
         $this->slug = $slug;
+        if ($this->aplikasis) {
+            # code...
+        } else {
+            # code...
+            return redirect()->to('/aplikasi-pm');
+        }
+
         $this->progres_apk = $this->aplikasis->progres;
         $this->progres = Progres::where('id_aplikasi', $this->aplikasis->id)->get();
         $this->tim = Tim::where('id_aplikasi', $this->aplikasis->id)->get();
@@ -90,6 +97,7 @@ class ShowAplikasipm extends Component
             'status_projek' => 'Disposisi Surat'
         ]);
         $cek = Progres::where('id_aplikasi', $this->aplikasis->id)->where('status', 'Disposisi Surat')->get();
+
         if ($cek->count() > 0) {
             foreach ($cek as $key) {
                 $key->delete();
@@ -103,7 +111,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Disposisi Surat* Pada Tanggal ' . Carbon::parse($this->disposisi)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Disposisi Surat* Pada Tanggal ' . Carbon::parse($this->disposisi)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -144,7 +152,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Analisis Awal* Pada Tanggal ' . Carbon::parse($this->analisis_awal)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Analisis Awal* Pada Tanggal ' . Carbon::parse($this->analisis_awal)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -186,7 +194,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' telah *Ditolak* karena ' . $this->alasan_tolak . ' Pada Tanggal ' . Carbon::parse($this->tolak)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' telah *Ditolak* karena ' . $this->alasan_tolak . ' Pada Tanggal ' . Carbon::parse($this->tolak)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -260,6 +268,8 @@ class ShowAplikasipm extends Component
             ]);
         }
 
+
+
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
             $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' dalam proses *Antrian Ke ' . $this->no_urut . '*';
@@ -282,6 +292,8 @@ class ShowAplikasipm extends Component
         ]);
 
 
+
+
         $this->aplikasis->update([
             'status_projek' => 'Analisis Kebutuhan',
             'status_aplikasi' => 'Progres'
@@ -300,7 +312,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Analisis Kebutuhan* Pada Tanggal ' . Carbon::parse($this->analisis_kebutuhan)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Analisis Kebutuhan* Pada Tanggal ' . Carbon::parse($this->analisis_kebutuhan)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -335,9 +347,11 @@ class ShowAplikasipm extends Component
             'status' => 'Coding',
             'id_aplikasi' => $this->aplikasis->id,
         ]);
+
+
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Coding* Pada Tanggal ' . Carbon::parse($this->coding)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Coding* Pada Tanggal ' . Carbon::parse($this->coding)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -381,7 +395,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Testing* Pada Tanggal ' . Carbon::parse($this->testing)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Testing* Pada Tanggal ' . Carbon::parse($this->testing)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -424,7 +438,7 @@ class ShowAplikasipm extends Component
         ]);
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *UAT* Pada Tanggal ' . Carbon::parse($this->uat)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *UAT* Pada Tanggal ' . Carbon::parse($this->uat)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }
@@ -461,8 +475,9 @@ class ShowAplikasipm extends Component
             'status_projek' => 'Selesai',
             'status_aplikasi' => 'Running',
             'no_urut' => null,
-            'tgl_selesai' => Carbon::now(),
-            'progres' => 100
+            // 'tgl_selesai' => Carbon::now(),
+            'progres' => 100,
+            'prioritas' => null,
         ]);
 
         $aplikasis = Aplikasi::whereNotNull('no_urut')->orderBy('no_urut')->get();
@@ -481,9 +496,10 @@ class ShowAplikasipm extends Component
             'id_aplikasi' => $this->aplikasis->id,
             // 'catatan' => $this->alasan_uat
         ]);
+
         if ($this->notif == 1) {
             $controller = new WhatappsGateway();
-            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' sedang dalam proses *Selesai* Pada Tanggal ' . Carbon::parse($this->selesai)->format('d F Y');
+            $pesan = 'Aplikasi ' . $this->aplikasis->nama_aplikasi . ' telah *Selesai* dikerjakan Pada Tanggal ' . Carbon::parse($this->selesai)->isoFormat('dddd, D MMMM Y');
             $controller->kirim($this->aplikasis->cp, $pesan);
             $this->reset('notif');
         }

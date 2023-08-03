@@ -16,7 +16,7 @@ class ODP extends Component
     public $select = 3;
     public $desa = '';
     public $search = '';
-    public $nama_opd, $email, $alamat, $no_telp;
+    public $nama_opd, $email, $alamat, $no_telp,$status;
     public $ids;
     protected $listeners = ['delete'];
     public function updatingSearch()
@@ -56,6 +56,7 @@ class ODP extends Component
         'email' => 'required|email:rfc,dns',
         'alamat' => 'required',
         'no_telp' => 'required',
+        'status' => 'required',
 
     ];
     protected $messages = [
@@ -64,6 +65,7 @@ class ODP extends Component
         'email.email' => 'Kolom Email harus berupa alamat email yang valid.',
         'alamat.required' => 'Kolom Alamat wajib diisi.',
         'no_telp.required' => 'Kolom Nomor Telepon wajib diisi.',
+        'status.required' => 'Kolom Status wajib diisi.',
     ];
 
     public function updated($field)
@@ -74,6 +76,8 @@ class ODP extends Component
             // 'role' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
+        'status' => 'required',
+
 
         ]);
     }
@@ -102,6 +106,7 @@ class ODP extends Component
         $this->email = $dataOPD->email;
         $this->alamat = $dataOPD->alamat;
         $this->no_telp = $dataOPD->no_telp;
+        $this->status = $dataOPD->status;
     }
 
 
@@ -117,8 +122,9 @@ class ODP extends Component
             'email' => $this->email,
             'alamat' => $this->alamat,
             'no_telp' => $this->no_telp,
+            'status' => $this->status,
         ]);
-        $this->reset(['nama_opd', 'email', 'alamat', 'no_telp']);
+        $this->reset(['nama_opd', 'email', 'alamat', 'no_telp','status']);
 
 
         $this->dispatchBrowserEvent('closeModal');
@@ -129,7 +135,7 @@ class ODP extends Component
         $nama = Data_OPD::where('id', $id)->first();
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
-            'title' => 'Apakah anda yakin akan menghapus ' . $nama->nama_opd . '?',
+            'title' => 'Apakah anda yakin akan menonaktifkan ' . $nama->nama_opd . '?',
             'text' => '',
             'id' => $id,
         ]);
@@ -138,7 +144,10 @@ class ODP extends Component
     public function delete($id)
     {
         $data = Data_OPD::where('id', $id)->first();
-        $data->delete();
+        // $data->delete();
+        $data->update([
+            'status' => 'Tidak Aktif'
+        ]);
         $this->alert('success', 'Data Berhasil Dihapus');
     }
 }

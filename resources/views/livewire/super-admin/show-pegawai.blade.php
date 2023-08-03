@@ -9,8 +9,8 @@
                     <div class="profile-info">
                         <div class="profile-photo">
                             {{-- <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt=""> --}}
-                            @if (!empty($pegawai->avatar) && Storage::exists('public/' . $pegawai->avatar))
-                            <img src="{{ Storage::url($pegawai->avatar) }}" class=" img-fluid  rounded-circle" alt="">
+                            @if (!empty($pegawai->avatar) )
+                            <img src="{{ asset($pegawai->avatar) }}" class=" img-fluid  rounded-circle" alt="">
                             @else
                             <img src="/asset/images/profile/profile.png" class="img-fluid rounded-circle" alt="">
 

@@ -14,34 +14,41 @@ class publikContoller extends Controller
 
         // $selectedItem = $request->query('selected_item');
         $antri = Aplikasi::whereNotNull('no_urut')->orderBy('no_urut')->get();
-        $app = Aplikasi::pluck('id','nama_aplikasi');
+        $app = Aplikasi::pluck('id', 'nama_aplikasi');
         // $app->appends(['selected_item' => $selectedItem]);
-        return view('welcome', ['antri' => $antri,'apps'=>$app]);
+        return view('welcome', ['antri' => $antri, 'apps' => $app]);
     }
 
 
     public function app()
     {
 
-        $tittle = 'Aplikasi';
+        $tittle = 'Daftar Aplikasi';
         // $app = Aplikasi::all();
         return view('app-publik', compact(['tittle']));
     }
 
 
-    public function showapp($id)
+    public function showapp($slug)
     {
-        $app = Aplikasi::where('slug', $id)->first();
-        $tittle = $app->nama_aplikasi;
-        $slug = '/app';
-        $slugname = 'Aplikasi';
-        return view('show-app', compact(['tittle', 'app', 'slugname', 'slug']));
+        $app = Aplikasi::where('slug', $slug)->first();
+
+        if ($app) {
+
+            $tittle = $app->nama_aplikasi;
+            $slug = '/app';
+            $slugname = 'Aplikasi';
+            return view('show-app', compact(['tittle', 'app', 'slugname', 'slug']));
+        } else {
+            return redirect()->route('publik');
+
+        }
     }
 
     public function waitinglist()
     {
 
-        $tittle = 'Antrian Aplikasi';
+        $tittle = 'Daftar Antrian Aplikasi';
         $slug = '/waiting-list';
         $slugname = 'Antrian';
         $list = Aplikasi::whereNotNull('no_urut')->orderBy('no_urut')->get();
@@ -53,7 +60,7 @@ class publikContoller extends Controller
         $slug = '/pemeliharaan';
         $slugname = 'Pemeliharaan';
         $list = Pengaduan::where('status', '<>', 'Selesai')->get();
-        $tittle = 'Pemeliharaan';
+        $tittle = 'Daftar Antrian Pemeliharaan';
         return view('pemeliharaan', compact(['tittle', 'slug', 'slugname', 'list']));
     }
 

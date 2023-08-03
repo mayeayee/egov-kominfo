@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pengaduans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_aplikasi');
+            $table->unsignedBigInteger('id_aplikasi')->nullable();
             $table->string('nama_pengaduan');
             $table->text('deskripsi')->nullable();
             // $table->enum('prioritas',['Low','Medium','High','Urgent'])->nullable();
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('slug');
             $table->foreign('id_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade');
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

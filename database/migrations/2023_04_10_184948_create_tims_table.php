@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('tims', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_aplikasi');
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_aplikasi')->nullable();
+            $table->unsignedBigInteger('id_user')->nullable();
             $table->enum('role', [ "Project Manager", "System Analyst", "Programmer", "Quality Assurance"]);
-            $table->foreign('id_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade');
-            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreign('id_aplikasi')->references('id')->on('aplikasis')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            // $table->softDeletes();
+
         });
     }
 

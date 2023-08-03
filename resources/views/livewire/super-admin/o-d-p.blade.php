@@ -52,6 +52,7 @@
                                 <th>Nama OPD</th>
                                 <th>Email</th>
                                 <th>Contact Person</th>
+                                <th>Status</th>
                                 <th>Action</th>
                                 </tr>
                             </thead>
@@ -66,6 +67,7 @@
                                     <td>{{ $item->nama_opd }}</td>
                                     <td>{{ $item->email ?? "" }}</td>
                                     <td>{{ $item->no_telp ?? "" }}</td>
+                                    <td>{{ $item->status ?? "" }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{ route('show-opd',$item->slug) }}"
@@ -160,6 +162,28 @@
                             <div class="col-lg-10  @error('alamat') input-warning-o @enderror">
                                 <textarea wire:model='alamat' class="form-control form-control-lg" rows="4"></textarea>
                                 @error('alamat')
+                                <div class="invalid-feedback animated fadeInUp d-block">
+
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label-lg font-weight-bold">Status</label>
+                            <div class="col-lg-10  @error('status') input-warning-o @enderror">
+                                {{-- <textarea wire:model='status' class="form-control form-control-lg"
+                                    rows="4"></textarea> --}}
+                                <div >
+                                    <select wire:model='status' id="mySelect" class="form-control default-select"
+                                        tabindex="-98">
+                                        <option value="">Pilih Ststus (OPD)</option>
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Tidak Aktif">Tidak Aktif</option>
+
+                                    </select>
+                                </div>
+                                @error('status')
                                 <div class="invalid-feedback animated fadeInUp d-block">
 
                                     {{ $message }}

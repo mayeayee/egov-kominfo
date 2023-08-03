@@ -22,6 +22,7 @@
                         <div class="section-heading">
                             <div class="sub-heading c-green upper ls-1">
                                 <i class="las la-building"></i>
+                                <h5 class="c-grey">NAMA OPD:</h5>
                                 <h5>{{ $app->R_OPD->nama_opd }}</h5>
                             </div>
                             <div class="main-heading c-dark">

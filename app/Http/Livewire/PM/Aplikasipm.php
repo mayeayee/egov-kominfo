@@ -37,8 +37,20 @@ class Aplikasipm extends Component
     public function render()
     {
         return view('livewire.p-m.aplikasipm', [
-            'opd' => Data_OPD::pluck('nama_opd', 'id'),
-            'aplikasis' => Aplikasi::orderByRaw("CASE WHEN prioritas='Urgent' THEN 1 WHEN prioritas='High' THEN 2 WHEN prioritas='Medium' THEN 3 WHEN prioritas='Low' THEN 4 ELSE 5 END")->search('nama_aplikasi', $this->search)->paginate(10),
+            'opd' => Data_OPD::where('status','Aktif')->pluck('nama_opd', 'id'),
+            'aplikasis' => Aplikasi::whereIn('status_aplikasi', ['Progres', 'Antrian', 'Inisiasi'])->orderByRaw("
+            CASE
+            WHEN status_aplikasi='Inisiasi' THEN 0
+            ELSE 1
+            END,
+            CASE
+            WHEN prioritas='Urgent' THEN 1
+            WHEN prioritas='High' THEN 2
+            WHEN prioritas='Medium' THEN 3
+            WHEN prioritas='Low'
+            THEN 4 ELSE 5
+            END
+            ")->orderBy('created_at', 'desc')->search('nama_aplikasi', $this->search)->paginate(10),
         ])->extends('layouts.main', [
             'tittle' => 'Aplikasi',
 

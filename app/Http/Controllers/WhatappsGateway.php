@@ -77,7 +77,7 @@ class WhatappsGateway extends Controller
 
         // Send the message
         try {
-            $response = Http::post('http://localhost:8001/send-message', [
+            $response = Http::post('http://103.205.82.105:8001/send-message', [
                 'number' => $number,
                 'message' => $message,
             ]);

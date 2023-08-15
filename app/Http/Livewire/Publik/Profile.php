@@ -104,6 +104,17 @@ class Profile extends Component
             if (Storage::exists('public/' . $nama_avatarUP)) {
                 Storage::delete('public/' . $nama_avatarUP);
             }
+            
+            // Path to the livewire-tmp folder
+            $livewireTmpPath = 'livewire-tmp'; // Assuming this is the correct relative path
+
+            // Get all files in the livewire-tmp folder
+            $files = Storage::files($livewireTmpPath);
+
+            // Delete each file
+            foreach ($files as $file) {
+                Storage::delete($file);
+            }
         }
 
 

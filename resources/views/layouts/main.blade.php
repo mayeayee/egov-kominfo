@@ -9,15 +9,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/asset/images/Kominfo46.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/asset/images/Kominfo46.png') }}">
     @stack('css')
     {{--
     <link rel="stylesheet" href="/asset/vendor/chartist/css/chartist.min.css"> --}}
-    <link href="/asset/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    {{--
+    <link href="/asset/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet"> --}}
+    <link href="{{ asset('/asset/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     {{--
     <link href="/asset/vendor/owl-carousel/owl.carousel.css" rel="stylesheet"> --}}
     @livewireStyles
-    <link href="/asset/css/style.css" rel="stylesheet">
+    <link href="{{ asset('/asset/css/style.css') }}" rel="stylesheet">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
@@ -36,9 +38,9 @@
 
         <div class="nav-header">
             <a href="/home" class="brand-logo">
-                <img class="logo-abbr" src="/asset/images/Kominfo3.png" alt="">
-                <img class="logo-compact" src="/asset/images/Kominfo-text.png" alt="">
-                <img class="brand-title" src="/asset/images/Kominfo-text.png" alt="">
+                <img class="logo-abbr" src="{{ asset('/asset/images/Kominfo3.png') }}" alt="">
+                <img class="logo-compact" src="{{ asset('/asset/images/Kominfo-text.png') }}" alt="">
+                <img class="brand-title" src="{{ asset('/asset/images/Kominfo-text.png') }}" alt="">
             </a>
 
             <div class="nav-control">
@@ -86,7 +88,8 @@
                                                         {{-- <img alt="image" width="50" src="images/avatar/1.jpg"> --}}
                                                     </div>
                                                     <div class="media-body">
-                                                        <h6 class="mb-1">{{ $item->R_Aplikasi->nama_aplikasi ?? ''}}</h6>
+                                                        <h6 class="mb-1">{{ $item->R_Aplikasi->nama_aplikasi ?? ''}}
+                                                        </h6>
                                                         <small class="d-block">{{ $item->deskripsi ?? '' }}</small>
                                                     </div>
                                                 </div>
@@ -311,11 +314,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     @include('sweetalert::alert')
     <!-- Required vendors -->
-    <script src="/asset/vendor/global/global.min.js"></script>
-    <script src="/asset/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="{{ asset('/asset/vendor/global/global.min.js') }}"></script>
+    <script src="{{ asset('/asset/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
     {{-- <script src="/asset/vendor/chart.js/Chart.bundle.min.js"></script> --}}
-    <script src="/asset/js/custom.min.js"></script>
-    <script src="/asset/js/deznav-init.js"></script>
+    <script src="{{ asset('/asset/js/custom.min.js') }}"></script>
+    <script src="{{ asset('/asset/js/deznav-init.js') }}"></script>
     {{-- <script src="/asset/vendor/owl-carousel/owl.carousel.js"></script> --}}
 
     @stack('js')

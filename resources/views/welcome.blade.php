@@ -17,10 +17,10 @@
     <!--
     favicon
     -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/asset/images/Kominfo46.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/asset/images/Kominfo.46png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/asset/images/Kominfo46.png">
-    <link rel="manifest" href="/publik/assets/images/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/asset/images/Kominfo46.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/asset/images/Kominfo.46png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/asset/images/Kominfo46.png') }}">
+    <link rel="manifest" href="{{ asset('/publik/assets/images/favicon/site.webmanifest') }}">
 
     <!--
     stylesheets
@@ -28,14 +28,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/publik/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/publik/assets/css/glightbox.min.css">
-    <link rel="stylesheet" href="/publik/assets/css/all.min.css">
-    <link rel="stylesheet" href="/publik/assets/css/line-awesome.min.css">
-    <link rel="stylesheet" href="/publik/assets/css/overlay-scrollbars.min.css">
-    <link rel="stylesheet" href="/publik/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/glightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/overlay-scrollbars.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/swiper-bundle.min.css') }}">
     {!! ReCaptcha::htmlScriptTagJsApi() !!}
-    <link rel="stylesheet" href="/publik/assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('/publik/assets/css/style.css') }}">
     @livewireStyles
     @livewireScripts
 
@@ -614,12 +614,12 @@
         });
     </script>
     @endif
-    <script src="/publik/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/publik/assets/js/swiper-bundle.min.js"></script>
-    <script src="/publik/assets/js/glightbox.min.js"></script>
-    <script src="/publik/assets/js/overlay-scrollbars.min.js"></script>
-    <script src="/publik/assets/js/gsap.min.js"></script>
-    <script src="/publik/assets/js/main.js"></script>
+    <script src="{{ asset('/publik/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/publik/assets/js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('/publik/assets/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('/publik/assets/js/overlay-scrollbars.min.js') }}"></script>
+    <script src="{{ asset('/publik/assets/js/gsap.min.js') }}"></script>
+    <script src="{{ asset('/publik/assets/js/main.js') }}"></script>
 
     {{--
     <x-livewire-alert::flash /> --}}
